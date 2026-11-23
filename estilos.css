@@ -160,36 +160,21 @@ header {
   min-width: 0;
 }
 
-/* Galería: todas las imágenes del evento a la vez.
- 1 imagen: a su tamaño (máx. 54vh). 2: lado a lado sin recorte. 3+: rejilla de 2 columnas
- en un alto fijo; con un número impar, la primera ocupa todo el ancho. */
+/* Galería: todas las imágenes del evento a la vez, sin recortar ninguna.
+ El JS (bestRows) decide cuántas piezas van en cada fila para aprovechar al
+ máximo el espacio libre, y fija el ancho de la galería. En cada fila todas las
+ piezas tienen el mismo alto y su ancho depende de su proporción (--ar). */
 .gallery {
   display: grid;
   gap: 8px;
-  min-width: 0;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-rows: minmax(0, 1fr);
-  height: 54vh;
+  max-width: 100%;
+  margin-inline: auto;
 }
 
-.gallery[data-count="1"] {
-  grid-template-columns: minmax(0, 1fr);
-  height: auto;
-}
-
-/* Dos piezas: lado a lado y a su proporción natural, sin alto fijo ni recorte */
-.gallery[data-count="2"] {
-  height: auto;
-  align-items: start;
-}
-
-.gallery[data-count="2"] .shot img,
-.gallery[data-count="2"] .shot video {
-  flex: none;
-}
-
-.gallery:not([data-count="1"]) .shot:first-child:nth-last-child(odd) {
-  grid-column: span 2;
+.gallery-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
 }
 
 .shot {
@@ -197,44 +182,31 @@ header {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  min-height: 0;
+  flex: var(--ar, 1) 1 0;
+  min-width: 0;
 }
 
 .shot img,
 .shot video {
-  flex: 1;
-  min-height: 0;
   width: 100%;
-  object-fit: cover;
+  height: auto;
+  aspect-ratio: var(--ar);
+  object-fit: cover; /* solo absorbe el píxel del borde; la proporción ya es la real */
   display: block;
   border-radius: 6px;
   background: var(--surface);
   border: 1px solid var(--rule);
 }
 
-.gallery[data-count="1"] .shot img,
-.gallery[data-count="1"] .shot video {
-  flex: none;
-  max-height: 54vh;
-}
-
 .shot figcaption {
   font-size: 13px;
+  line-height: 1.35;
   color: var(--muted);
 }
 
 @media (max-width: 760px) {
   .slide.has-media {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .gallery {
-    height: 28vh;
-  }
-
-  .gallery[data-count="1"] .shot img,
-  .gallery[data-count="1"] .shot video {
-    max-height: 28vh;
   }
 }
 
@@ -250,10 +222,235 @@ header {
 
 .era {
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 30px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--warm);
+  /* Efecto "twitchy": quieto casi siempre y, cada pocos segundos, un tirón */
+  position: relative;
+  justify-self: start; /* mide lo que el texto, así las capas de color coinciden */
+
+  /* Los dos controles del efecto (app.js lee --era-intervalo): */
+  --era-intervalo: 3s; /* cada cuánto da un tirón */
+  --era-tiron: 550ms; /* cuánto dura cada tirón: más alto = más lento */
+}
+
+/* Capas roja y cian: copian el texto (data-text, lo pone app.js) y solo se ven
+   durante los tirones, desplazadas y cortadas en franjas. */
+.era::before,
+.era::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.era::before {
+  color: var(--accent);
+}
+
+.era::after {
+  color: #3fd0e0;
+}
+
+/* Tirón suave de fondo, cada --era-intervalo (app.js añade la clase) */
+.era.twitch-soft {
+  animation: era-soft var(--era-tiron) steps(1, end);
+}
+
+.era.twitch-soft::before {
+  animation: era-soft-a var(--era-tiron) steps(1, end);
+}
+
+.era.twitch-soft::after {
+  animation: era-soft-b var(--era-tiron) steps(1, end);
+}
+
+/* Al cambiar de evento: un tirón más fuerte y seguido (app.js añade la clase) */
+.era.twitch-now {
+  animation: era-burst var(--era-tiron) steps(1, end);
+}
+
+.era.twitch-now::before {
+  animation: era-burst-a var(--era-tiron) steps(1, end);
+}
+
+.era.twitch-now::after {
+  animation: era-burst-b var(--era-tiron) steps(1, end);
+}
+
+/* Se usan translate y filter (no transform ni opacity) para no pisar la
+   transición de entrada y salida de la tarjeta. */
+@keyframes era-soft {
+  0%,
+  56%,
+  100% {
+    translate: none;
+    filter: none;
+  }
+  11% {
+    translate: -2px 0;
+    filter: opacity(0.6);
+  }
+  22% {
+    translate: 3px 1px;
+    filter: none;
+  }
+  33% {
+    translate: -1px -1px;
+    filter: opacity(0.35);
+  }
+  44% {
+    translate: 1px 0;
+    filter: none;
+  }
+  89% {
+    translate: 2px 0;
+    filter: opacity(0.75);
+  }
+}
+
+@keyframes era-soft-a {
+  0%,
+  44%,
+  100% {
+    opacity: 0;
+    translate: none;
+  }
+  11% {
+    opacity: 0.9;
+    translate: -4px 0;
+    clip-path: inset(0 0 55% 0);
+  }
+  22% {
+    opacity: 0.9;
+    translate: 5px 0;
+    clip-path: inset(40% 0 20% 0);
+  }
+  33% {
+    opacity: 0.9;
+    translate: -3px 0;
+    clip-path: inset(70% 0 0 0);
+  }
+  89% {
+    opacity: 0.8;
+    translate: 3px 0;
+    clip-path: inset(15% 0 55% 0);
+  }
+}
+
+@keyframes era-soft-b {
+  0%,
+  44%,
+  100% {
+    opacity: 0;
+    translate: none;
+  }
+  11% {
+    opacity: 0.8;
+    translate: 4px 0;
+    clip-path: inset(50% 0 0 0);
+  }
+  22% {
+    opacity: 0.8;
+    translate: -5px 1px;
+    clip-path: inset(0 0 65% 0);
+  }
+  33% {
+    opacity: 0.8;
+    translate: 2px 0;
+    clip-path: inset(25% 0 45% 0);
+  }
+  89% {
+    opacity: 0.7;
+    translate: -3px 0;
+    clip-path: inset(60% 0 5% 0);
+  }
+}
+
+@keyframes era-burst {
+  0% {
+    translate: -3px 0;
+    filter: opacity(0.5);
+  }
+  15% {
+    translate: 3px 1px;
+    filter: none;
+  }
+  30% {
+    translate: -2px -1px;
+    filter: opacity(0.3);
+  }
+  45% {
+    translate: 1px 0;
+    filter: none;
+  }
+  60% {
+    translate: none;
+    filter: opacity(0.7);
+  }
+  75%,
+  100% {
+    translate: none;
+    filter: none;
+  }
+}
+
+@keyframes era-burst-a {
+  0% {
+    opacity: 0.9;
+    translate: -4px 0;
+    clip-path: inset(0 0 60% 0);
+  }
+  20% {
+    opacity: 0.9;
+    translate: 5px 0;
+    clip-path: inset(30% 0 30% 0);
+  }
+  40% {
+    opacity: 0.9;
+    translate: -3px 0;
+    clip-path: inset(60% 0 0 0);
+  }
+  60% {
+    opacity: 0.9;
+    translate: 2px 0;
+    clip-path: inset(10% 0 70% 0);
+  }
+  80%,
+  100% {
+    opacity: 0;
+    translate: none;
+  }
+}
+
+@keyframes era-burst-b {
+  0% {
+    opacity: 0.8;
+    translate: 4px 0;
+    clip-path: inset(55% 0 0 0);
+  }
+  20% {
+    opacity: 0.8;
+    translate: -5px 1px;
+    clip-path: inset(0 0 50% 0);
+  }
+  40% {
+    opacity: 0.8;
+    translate: 3px 0;
+    clip-path: inset(35% 0 35% 0);
+  }
+  60% {
+    opacity: 0.8;
+    translate: -2px 0;
+    clip-path: inset(70% 0 0 0);
+  }
+  80%,
+  100% {
+    opacity: 0;
+    translate: none;
+  }
 }
 
 /* "1 de 2 eventos en 1996": solo aparece si el año tiene más de un evento */
@@ -632,5 +829,12 @@ kbd {
 
   .card > * {
     transition: none;
+  }
+
+  /* Sin tirones para quien pidió reducir el movimiento */
+  .era,
+  .era::before,
+  .era::after {
+    animation: none !important;
   }
 }
