@@ -80,7 +80,7 @@ function layout() {
     d.style.left = x;
     d.setAttribute(
       "aria-label",
-      g.year + ": " + g.events.map((i) => EVENTS[i].title).join(" · "),
+      (EVENTS[first].yearLabel || g.year) + ": " + g.events.map((i) => EVENTS[i].title).join(" · "),
     );
     // Al pulsar un año se va a su primer evento
     d.addEventListener("click", () => go(first));
@@ -124,20 +124,18 @@ function render(animateCard) {
     era.textContent = e.era || "";
     era.dataset.text = era.textContent; // las capas de color del efecto copian este texto
     if (animateCard) twitch(era);
-    $("year").textContent = Math.floor(e.year);
+    // yearLabel (opcional) permite mostrar textos como "2027+" en lugar del número
+    $("year").textContent = e.yearLabel || Math.floor(e.year);
     const { n, total } = slots[current],
       slot = $("yearSlot");
     slot.hidden = total === 1;
-    slot.textContent =
-      n + " de " + total + " eventos en " + Math.floor(e.year);
     $("evTitle").textContent = e.title;
     $("evText").textContent = e.text;
+    fillFacts(e);
     const imgs = imagesOf(e);
     $("gallery").innerHTML = "";
     $("media").hidden = imgs.length === 0;
     $("slide").classList.toggle("has-media", imgs.length > 0);
-    // Espera a conocer la proporción de cada imagen (normalmente ya está
-    // precargada). Si mientras tanto se cambió de evento, no hace nada.
     const shown = current;
     Promise.all(imgs.map((im) => ratioOf(im.src))).then((ars) => {
       if (shown === current) fillGallery(imgs, ars, e);
@@ -153,6 +151,29 @@ function render(animateCard) {
     fillCard();
     slide.classList.remove("leaving");
   }, 300);
+}
+
+/* Ficha del juego: plataformas en las que se puede jugar (campo platforms) */
+function fillFacts(e) {
+  const dl = $("facts");
+  dl.innerHTML = "";
+  const plats = e.platforms || [];
+  dl.hidden = plats.length === 0;
+  if (!plats.length) return;
+
+  const row = document.createElement("div");
+  row.className = "fact";
+  const dt = document.createElement("dt");
+  dt.textContent = "Plataformas";
+  const dd = document.createElement("dd");
+  plats.forEach((p) => {
+    const chip = document.createElement("span");
+    chip.className = "chip";
+    chip.textContent = p;
+    dd.appendChild(chip);
+  });
+  row.append(dt, dd);
+  dl.appendChild(row);
 }
 
 // Normaliza las imágenes de un evento. Acepta:
@@ -216,13 +237,43 @@ function galleryBox() {
   return { w: media.clientWidth, h: Math.max(160, h - 8) };
 }
 
-// Elige cómo repartir las piezas en filas (sin cambiar su orden) para que
-// ocupen la mayor área posible dentro de maxW × maxH. Prueba todos los
-// cortes posibles: con n piezas hay 2^(n-1) maneras, pocas para una galería.
+// Para un reparto concreto en filas, calcula el ancho máximo de la galería que
+// cabe en maxW × maxH y el área que ocuparían las piezas.
 // En una fila con proporciones a, b, c y huecos g, el alto es (ancho - g) / (a + b + c),
 // así que el alto total crece en línea recta con el ancho y se puede despejar.
+function fitRows(rows, ars, caps, maxW, maxH) {
+  const info = rows.map((r) => ({
+    sum: r.reduce((s, i) => s + ars[i], 0),
+    gaps: GAP * (r.length - 1),
+  }));
+  // alto total = a · ancho + b
+  let a = 0,
+    b = GAP * (rows.length - 1);
+  info.forEach(({ sum, gaps }, k) => {
+    a += 1 / sum;
+    b += -gaps / sum + (rows[k].some((i) => caps[i]) ? CAP_H : 0);
+  });
+  const w = Math.min(maxW, (maxH - b) / a);
+  let area = 0;
+  info.forEach(({ sum, gaps }) => {
+    area += w > gaps ? (w - gaps) ** 2 / sum : -Infinity;
+  });
+  return { rows, w, area };
+}
+
+// Elige cómo repartir las piezas en filas para que ocupen la mayor área posible
+// dentro de maxW × maxH.
 function bestRows(ars, caps, maxW, maxH) {
   const n = ars.length;
+
+  // 3 piezas: siempre dos arriba y la más ancha (mayor proporción) abajo.
+  // Las otras dos mantienen su orden.
+  if (n === 3) {
+    const widest = ars.indexOf(Math.max(...ars));
+    const top = [0, 1, 2].filter((i) => i !== widest);
+    return fitRows([top, [widest]], ars, caps, maxW, maxH);
+  }
+
   if (n > 12) {
     // Demasiadas combinaciones: filas de 4
     const rows = [];
@@ -230,32 +281,20 @@ function bestRows(ars, caps, maxW, maxH) {
       rows.push([...Array(Math.min(4, n - i)).keys()].map((k) => i + k));
     return { rows, w: maxW };
   }
+
+  // Resto de casos: prueba todos los cortes posibles sin cambiar el orden.
+  // Con n piezas hay 2^(n-1) maneras, pocas para una galería.
   let best = null;
   for (let mask = 0; mask < 1 << (n - 1); mask++) {
     const rows = [[0]];
     for (let i = 1; i < n; i++)
       if (mask & (1 << (i - 1))) rows.push([i]);
       else rows[rows.length - 1].push(i);
-    const info = rows.map((r) => ({
-      sum: r.reduce((s, i) => s + ars[i], 0),
-      gaps: GAP * (r.length - 1),
-    }));
-    // alto total = a · ancho + b
-    let a = 0,
-      b = GAP * (rows.length - 1);
-    info.forEach(({ sum, gaps }, k) => {
-      a += 1 / sum;
-      b += -gaps / sum + (rows[k].some((i) => caps[i]) ? CAP_H : 0);
-    });
-    const w = Math.min(maxW, (maxH - b) / a);
-    let area = 0;
-    info.forEach(({ sum, gaps }) => {
-      area += w > gaps ? (w - gaps) ** 2 / sum : -Infinity;
-    });
+    const fit = fitRows(rows, ars, caps, maxW, maxH);
     // Cada fila extra tiene que ganar más de un 8 % de área para compensar:
     // en un empate se prefieren menos filas, que se ven más ordenadas.
-    area *= ROW_PENALTY ** (rows.length - 1);
-    if (!best || area > best.area) best = { rows, w, area };
+    fit.area *= ROW_PENALTY ** (rows.length - 1);
+    if (!best || fit.area > best.area) best = fit;
   }
   return best;
 }
