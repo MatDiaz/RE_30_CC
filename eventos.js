@@ -2,7 +2,7 @@ const EVENTS = [
   {
     year: 1989,
     era: "Sweet Home",
-    title: "Hogar, dulce hogar.",
+    title: "Hogar, dulce hogar",
     text: "Fue un <i> tie-in </in> de la película homonima. Un equipo de grabación de 5 personas entra a una casa embrujada y luchan por salir. Combate RPG con diferentes finales, permadeath, en especial su ambientación",
     platforms: ["Famicom"],
     images: [
@@ -17,7 +17,7 @@ const EVENTS = [
   {
     year: 1996,
     era: "Resident Evil",
-    title: "¿Huésped maldito, o Riesgo Biológico?",
+    title: "¿Huésped maldito o riesgo biológico?",
     text: "Édouard-Léon Scott de Martinville traza ondas sonoras sobre papel ahumado. Se podía ver el sonido, pero no escucharlo de nuevo.",
     platforms: ["PlayStation", "Sega Saturn", "PC"],
     images: [
@@ -42,7 +42,7 @@ const EVENTS = [
   {
     year: 1998,
     era: "Resident Evil 2",
-    title: "Un novato y una universitaria. (y una motociclista)",
+    title: "Un novato y una universitaria (y una motociclista)",
     text: "Un cilindro de estaño registra surcos que una aguja recorre después. Primera vez que una voz se graba y se reproduce.",
     platforms: ["PlayStation", "PC", "Nintendo 64", "Dreamcast", "GameCube"],
     images: [
@@ -82,7 +82,7 @@ const EVENTS = [
   {
     year: 2000,
     era: "Resident Evil Survivor",
-    title: "Pew! Pew!",
+    title: "¡Pew! ¡Pew!",
     text: "Micrófonos y amplificadores sustituyen la bocina acústica y amplían el rango de frecuencias capturado.",
     platforms: ["PlayStation"],
     images: [
@@ -121,7 +121,7 @@ const EVENTS = [
   {
     year: 2001,
     era: "Resident Evil Gaiden",
-    title: "Lo que pasa en el barco, se queda en el barco",
+    title: "Lo que pasa en el barco se queda en el barco",
     text: "",
     platforms: ["Game Boy Color"],
     images: [
@@ -175,7 +175,7 @@ const EVENTS = [
   {
     year: 2002,
     era: "Resident Evil Zero",
-    title: "Llega el streaming masivo",
+    title: "Antes del principio",
     text: "",
     platforms: ["GameCube", "Wii", "PS3", "PS4", "Xbox 360", "Xbox One", "PC", "Switch"],
     images: [
@@ -190,7 +190,7 @@ const EVENTS = [
   {
     year: 2003,
     era: "Resident Evil: Dead Aim",
-    title: "Un barco, y una historia de amor",
+    title: "Un barco y una historia de amor",
     text: "",
     platforms: ["PlayStation 2"],
     images: [
@@ -226,7 +226,7 @@ const EVENTS = [
   {
     year: 2004,
     era: "Resident Evil Outbreak File #2",
-    title: "Estos personajes quizás sirvan en un futuro.",
+    title: "Estos personajes quizás sirvan en el futuro",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
     platforms: ["PlayStation 2"],
     images: [
@@ -262,7 +262,7 @@ const EVENTS = [
   {
     year: 2006,
     era: "Resident Evil Deadly Silence",
-    title: "Doble pantalla, ",
+    title: "Doble pantalla, mismo silencio",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
     platforms: ["Nintendo DS"],
     images: [
@@ -280,7 +280,7 @@ const EVENTS = [
   {
     year: 2007,
     era: "Resident Evil: The Umbrella Chronicles",
-    title: "Canon pero no tan canon",
+    title: "Canon, pero no tan canon",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
     platforms: ["Wii", "PS3"],
     images: [
@@ -298,7 +298,7 @@ const EVENTS = [
   {
     year: 2009,
     era: "Resident Evil 5",
-    title: "Biceps como una piedra",
+    title: "Bíceps como una piedra",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
     platforms: ["PS3", "Xbox 360", "PC", "PS4", "Xbox One", "Switch"],
     images: [
@@ -373,7 +373,7 @@ const EVENTS = [
   {
     year: 2012,
     era: "Resident Evil Revelations",
-    title: "Esta vez sin Leon™",
+    title: "Jill en altamar",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
     platforms: ["Nintendo 3DS", "PS3", "Xbox 360", "Wii U", "PC", "PS4", "Xbox One", "Switch"],
     images: [
@@ -392,7 +392,7 @@ const EVENTS = [
     year: 2012,
     era: "Resident Evil 6",
     title:
-      "Qué tienen en común un T-Rex, una mosca de 15 metros y los bíceps de Chris?",
+      "¿Qué tienen en común un T-Rex, una mosca de 15 metros y los bíceps de Chris?",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
     platforms: ["PS3", "Xbox 360", "PC", "PS4", "Xbox One", "Switch"],
     images: [
@@ -434,7 +434,7 @@ const EVENTS = [
   {
     year: 2016,
     era: "Resident Evil Umbrella Corps",
-    title: "Tocando fondo después del fondo.",
+    title: "Tocando fondo después del fondo",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
     platforms: ["PS4", "PC"],
     images: [
@@ -452,7 +452,7 @@ const EVENTS = [
   {
     year: 2017,
     era: "Resident Evil 7: Biohazard",
-    title: "Ethan Winters al rescate (de la saga).",
+    title: "Ethan Winters al rescate (de la saga)",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
     platforms: ["PS4", "Xbox One", "PC", "Switch (nube)", "PS5", "Xbox Series X|S", "Switch 2"],
     images: [
@@ -473,7 +473,7 @@ const EVENTS = [
   {
     year: 2019,
     era: "Resident Evil 2: Remake",
-    title: "Empieza una nueva era. Nueva?.",
+    title: "Empieza una nueva era. ¿Nueva?",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
     platforms: ["PS4", "Xbox One", "PC", "PS5", "Xbox Series X|S", "iOS", "macOS"],
     images: [
@@ -491,7 +491,7 @@ const EVENTS = [
   {
     year: 2020,
     era: "Resident Evil 3: Remake & Resistance",
-    title: "Mira como masacraron a mi muchacho",
+    title: "Mira cómo masacraron a mi muchacho",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
     platforms: ["PS4", "Xbox One", "PC", "PS5", "Xbox Series X|S"],
     images: [
@@ -509,7 +509,7 @@ const EVENTS = [
   {
     year: 2021,
     era: "Resident Evil 8: Village",
-    title: "Cómo está señora D?",
+    title: "¿Cómo está, señora D?",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
     platforms: ["PS5", "PS4", "Xbox Series X|S", "Xbox One", "PC", "Stadia", "Switch (nube)", "macOS", "iOS", "Switch 2"],
     images: [
@@ -530,12 +530,12 @@ const EVENTS = [
   {
     year: 2022,
     era: "Resident Evil Re:Verse",
-    title: "Cómo está señora D?",
-    text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
-    platforms: ["PS4", "Xbox One", "PC"],
+    title: "Morir es solo el comienzo",
+    text: "Un todos contra todos en línea para hasta 6 jugadores, con personajes clásicos de la saga. Al morir regresas convertido en arma biológica. Iba a llegar junto a Village en 2021 como regalo, pero tras varios retrasos salió hasta octubre de 2022.",
+    platforms: ["PS4", "Xbox One", "PC", "PS5 (retrocompatible)", "Xbox Series X|S (retrocompatible)"],
     images: [
       {
-        src: "Images/reresistance.jpg"
+        src: "Images/reverse.jpg"
       }
     ]
   },
