@@ -31,6 +31,10 @@ const EVENTS = [
         src: "Images/jill-live-action.gif",
         caption: "Jill Valentine interpretada por la reconocida <i>Inezh</i>",
       },
+      {
+        src: "Images/mikami.jpg",
+        caption: "Shinji Mikami, director.",
+      },
     ],
   },
   {
@@ -144,60 +148,170 @@ const EVENTS = [
     era: "Resident Evil (remake)",
     title: "Regresó de entre los muertos",
     text: "",
+    images: [
+      {
+        src: "Images/Resident-evil-cover.webp"
+      },
+      {
+        src: "Images/Lisa_Trevor.webp"
+      },
+      {
+        src: "Images/reRemake.jpg"
+      },
+      {
+        src: "Images/Rechambers.webp"
+      }
+    ]
   },
   {
     year: 2002,
     era: "Resident Evil Zero",
     title: "Llega el streaming masivo",
-    text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
+    text: "",
+    images: [
+      {
+        src: "Images/Resident_evil_zero.webp"
+      },
+      {
+        src: "Images/RE0JamesMarcus.webp"
+      }
+    ]
   },
   {
     year: 2003,
     era: "Resident Evil: Dead Aim",
     title: "Un barco, y una historia de amor",
-    text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
+    text: "",
+    images: [
+      {
+        src: "Images/REDEADCOVER.webp"
+      },
+      {
+        src: "Images/bruce.jpg"
+      },
+      {
+        src: "Images/fongling.jpg"
+      }
+    ]
   },
   {
     year: 2003,
     era: "Resident Evil: Outbreak",
     title: "El remake más necesario",
-    text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
+    text: "",
+    images: [
+      {
+        src: "Images/outbreak1.jpg",
+      },
+      {
+        src: "Images/res-outbreAK.webp"
+      },
+      {
+        src: "Images/reoutbreak.jpg"
+      }
+    ]
   },
   {
     year: 2004,
     era: "Resident Evil Outbreak File #2",
     title: "Estos personajes quizás sirvan en un futuro.",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
+    images: [
+      {
+        src: "Images/REOF2.jpg"
+      },
+      {
+        src: "Images/elefante.jpg"
+      }
+    ]
   },
   {
     year: 2005,
     era: "Resident Evil 4",
     title: "El terror, reinventado",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
+    images: [
+      {
+        src: "Images/Resident_Evil_4_GC.webp"
+      },
+      {
+        src: "Images/backcover.jpg"
+      },
+      {
+        src: "Images/QTE.webp"
+      },
+      {
+        src: "Images/Ashley_Graham_RE4.webp"
+      }
+    ]
   },
   {
     year: 2006,
     era: "Resident Evil Deadly Silence",
-    title: "El terror, reinventado",
+    title: "Doble pantalla, ",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
+    images: [
+      {
+        src: "Images/REDS.jpg"
+      },
+      {
+        src: "Images/ReDSscreen.jpg"
+      },
+      {
+        src: "Images/doublescreen.jpg"
+      }
+    ]
   },
   {
     year: 2007,
     era: "Resident Evil: The Umbrella Chronicles",
     title: "Canon pero no tan canon",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
+    images: [
+      {
+        src: "Images/umbrellachronicles.jpg"
+      },
+      {
+        src: "Images/Umbrella Chronicles 2.webp"
+      },
+      {
+        src: "Images/jillchronicles.gif"
+      }
+    ]
   },
   {
     year: 2009,
     era: "Resident Evil 5",
-    title: "Doble de personajes, doble de diversión",
+    title: "Biceps como una piedra",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
+    images: [
+      {
+        src: "Images/RE5.png"
+      },
+      {
+        src: "Images/chris_roca.webp"
+      },
+      {
+        src: "Images/biceps.jpg"
+      }
+    ]
   },
   {
     year: 2009,
     era: "Resident Evil: The Darkside Chronicles",
     title: "Esta vez con más Leon™",
-    text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
+    text: "",
+    images: [
+      {
+        src: "Images/Darkside.webp"
+      },
+      {
+        src: "Images/clairedarkside.webp"
+      },
+      {
+        src: "Images/darksidechronicles.jpg"
+      }
+    ]
   },
   {
     year: 2011,
