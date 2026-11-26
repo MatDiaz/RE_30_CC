@@ -3,7 +3,7 @@ const EVENTS = [
     year: 1989,
     era: "Sweet Home",
     title: "Hogar, dulce hogar",
-    text: "Fue un <i> tie-in </in> de la película homonima. Un equipo de grabación de 5 personas entra a una casa embrujada y luchan por salir. Combate RPG con diferentes finales, permadeath, en especial su ambientación",
+    text: "Fue un <i>tie-in</i> de la película homónima. Un equipo de grabación de 5 personas entra a una casa embrujada y luchan por salir. Plantea mecánicas como: inventario limitado, mapas intrincados, enemigos aterradores, etc.",
     platforms: ["Famicom"],
     images: [
       {
@@ -18,7 +18,7 @@ const EVENTS = [
     year: 1996,
     era: "Resident Evil",
     title: "¿Huésped maldito o riesgo biológico?",
-    text: "Édouard-Léon Scott de Martinville traza ondas sonoras sobre papel ahumado. Se podía ver el sonido, pero no escucharlo de nuevo.",
+    text: "Biohazard para japón, Resident Evil para el resto del mundo. Inicialmente Capcom quería que fuera un remake de Sweet Home, y fue dejado a cargo de Shinji Mikami. Inspirado fuertemente en las peliculas de <b>Serie B</b>. Personajes Icónicos: Jill Valentine, Chris Redfield, Barry Burton, Albert Wesker",
     platforms: ["PlayStation", "Sega Saturn", "PC"],
     images: [
       {
@@ -43,7 +43,7 @@ const EVENTS = [
     year: 1998,
     era: "Resident Evil 2",
     title: "Un novato y una universitaria (y una motociclista)",
-    text: "Un cilindro de estaño registra surcos que una aguja recorre después. Primera vez que una voz se graba y se reproduce.",
+    text: "Después de éxito del primero, Capcom ordena inmediatamente comenzar con la secuela. Mikami actúa como productor, cuando llevaban apróximadamente e 70% deciden reiniciar la producción, se retrasa el juego y es terminado en tiempo récord. Introduce a dos personajes nuevos, Leon S. Kennedy y Claire Redfield.",
     platforms: ["PlayStation", "PC", "Nintendo 64", "Dreamcast", "GameCube"],
     images: [
       {
@@ -55,7 +55,7 @@ const EVENTS = [
       },
       {
         src: "Images/licker.gif",
-        caption: "Si le disparas en el * le haces mas daño (?)",
+        caption: "Si le disparas en el * le haces mas daño",
       },
     ],
   },
@@ -63,11 +63,12 @@ const EVENTS = [
     year: 1999,
     era: "Resident Evil 3: Nemesis",
     title: "STAAAAAARS",
-    text: "Emile Berliner reemplaza el cilindro por un disco, mucho más fácil de copiar en masa.",
+    text: "Lanzado tan solo un año después, producido nuevamente por Mikami y dirigido por Hideki Kamija. Divisivo entre los fans por incluir más elementos de acción, aclamado por sus escenarios y personajes. Regresa Jill Valentine con personajes como Carlos Olivera",
     platforms: ["PlayStation", "PC", "Dreamcast", "GameCube"],
     images: [
       {
         src: "Images/nemesis-clocktower.gif",
+        caption: "Nemesis, Nemmy de cariño",
       },
       {
         src: "Images/RE3.webp",
@@ -82,8 +83,8 @@ const EVENTS = [
   {
     year: 2000,
     era: "Resident Evil Survivor",
-    title: "¡Pew! ¡Pew!",
-    text: "Micrófonos y amplificadores sustituyen la bocina acústica y amplían el rango de frecuencias capturado.",
+    title: "Pistola no incluida",
+    text: "Primer spin-off de Resident Evil y primero de la serie Gun Survivor: un shooter en primera persona compatible con la pistola de luz GunCon. Ark Thompson despierta sin memoria en Sheena Island, una isla de Umbrella. En Norteamérica salió sin soporte para la pistola.",
     platforms: ["PlayStation"],
     images: [
       {
@@ -101,14 +102,19 @@ const EVENTS = [
     year: 2000,
     era: "Resident Evil: Code Veronica",
     title: "Spin-off no spin-off",
-    text: "Columbia lanza el disco de larga duración: unos 20 minutos por cara en vinilo.",
-    platforms: ["Dreamcast", "PS2 y GameCube (Code: Veronica X)", "PS3 y Xbox 360 (HD)"],
+    text: "Desarrollado en paralelo a Resident Evil 3, inicialmente exclusivo para Sega Dreamcast. Es considerado los mejores de la saga en esta época. Volvemos a jugar con Claire Redfield después de haber sido secuestrada por Umbrella.",
+    platforms: [
+      "Dreamcast",
+      "PS2 y GameCube (Code: Veronica X)",
+      "PS3 y Xbox 360 (HD)",
+    ],
     images: [
       {
         src: "Images/RECVclaire.webp",
       },
       {
         src: "Images/VMUclaire.jpg",
+        caption: "Virtual Memory Unit de DreamCast",
       },
       {
         src: "Images/VMURE2.jpg",
@@ -122,7 +128,7 @@ const EVENTS = [
     year: 2001,
     era: "Resident Evil Gaiden",
     title: "Lo que pasa en el barco se queda en el barco",
-    text: "",
+    text: "Desarrollado para el Game Boy Color, se desarrolla en vista cenital y se ambienta en un barco donde están Leon y Barry. Es descartado como entrada canonica en la historia.",
     platforms: ["Game Boy Color"],
     images: [
       {
@@ -140,7 +146,7 @@ const EVENTS = [
     year: 2001,
     era: "Resident Evil Survivor 2: Code Veronica",
     title: "Al final todo era un sueño",
-    text: "",
+    text: "El segundo spin-off de los <i>on-rails shooter</i>, sigue ligeramente la historia de RE: Code Veronica. Aparece Nemesis, pero al final Claire despierta y es todo un sueño.",
     platforms: ["Arcade (NAOMI)", "PlayStation 2"],
     images: [
       {
@@ -155,8 +161,17 @@ const EVENTS = [
     year: 2002,
     era: "Resident Evil (remake)",
     title: "Regresó de entre los muertos",
-    text: "",
-    platforms: ["GameCube", "Wii", "PS3", "PS4", "Xbox 360", "Xbox One", "PC", "Switch"],
+    text: "El primero de tres juegos 'exclusivos' para Gamecube. Dirigido nuevamente por Shinji Mikami quién consideraba que el original había envejecido, añade nuevas mecánicas. Es considerado un estándarte del <i>Survival Horror</i>.",
+    platforms: [
+      "GameCube",
+      "Wii",
+      "PS3",
+      "PS4",
+      "Xbox 360",
+      "Xbox One",
+      "PC",
+      "Switch",
+    ],
     images: [
       {
         src: "Images/Resident-evil-cover.webp",
@@ -175,9 +190,18 @@ const EVENTS = [
   {
     year: 2002,
     era: "Resident Evil Zero",
-    title: "Antes del principio",
-    text: "",
-    platforms: ["GameCube", "Wii", "PS3", "PS4", "Xbox 360", "Xbox One", "PC", "Switch"],
+    title: "Paciente ∅",
+    text: "Actúa como una precuela de la historia del primer juego. Mantiene mecánicas muy similares, mientras que las innovaciones fueron críticadas. Jugamos por primera vez con Rebbeca Chambers, y se introduce Billy Cohen como compañero. Sus ventas fueron bajas. ",
+    platforms: [
+      "GameCube",
+      "Wii",
+      "PS3",
+      "PS4",
+      "Xbox 360",
+      "Xbox One",
+      "PC",
+      "Switch",
+    ],
     images: [
       {
         src: "Images/Resident_evil_zero.webp",
@@ -190,8 +214,8 @@ const EVENTS = [
   {
     year: 2003,
     era: "Resident Evil: Dead Aim",
-    title: "Un barco y una historia de amor",
-    text: "",
+    title: "Leon y Ada de Temu",
+    text: "Tercera entrada en la saga de gun survivor, permitía jugarse también sin la pistola de luz. Protagonizado por Brunce, un agente estadounidense y Fong Ling una espía china. Mientras investigan (otro) barco de Umbrella. Tuvo recepción mixta.",
     platforms: ["PlayStation 2"],
     images: [
       {
@@ -242,8 +266,21 @@ const EVENTS = [
     year: 2005,
     era: "Resident Evil 4",
     title: "El terror, reinventado",
-    text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
-    platforms: ["GameCube", "PlayStation 2", "PC", "Wii", "iOS (Mobile Edition)", "Zeebo (Mobile Edition)", "PS3", "Xbox 360", "PS4", "Xbox One", "Switch", "Meta Quest 2 (VR)"],
+    text: "Después de relativo fracaso de RE: Zero, Shinji Mikami reconoce el estancamiento de la saga y decide hacer un cambio drástico.",
+    platforms: [
+      "GameCube",
+      "PlayStation 2",
+      "PC",
+      "Wii",
+      "iOS (Mobile Edition)",
+      "Zeebo (Mobile Edition)",
+      "PS3",
+      "Xbox 360",
+      "PS4",
+      "Xbox One",
+      "Switch",
+      "Meta Quest 2 (VR)",
+    ],
     images: [
       {
         src: "Images/Resident_Evil_4_GC.webp",
@@ -375,7 +412,16 @@ const EVENTS = [
     era: "Resident Evil Revelations",
     title: "Jill en altamar",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
-    platforms: ["Nintendo 3DS", "PS3", "Xbox 360", "Wii U", "PC", "PS4", "Xbox One", "Switch"],
+    platforms: [
+      "Nintendo 3DS",
+      "PS3",
+      "Xbox 360",
+      "Wii U",
+      "PC",
+      "PS4",
+      "Xbox One",
+      "Switch",
+    ],
     images: [
       {
         src: "Images/Revelations.webp",
@@ -415,7 +461,15 @@ const EVENTS = [
     era: "Resident Evil: Revelations 2",
     title: "Tu tarea es señalar objetos",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
-    platforms: ["PS4", "PS3", "Xbox One", "Xbox 360", "PC", "PS Vita", "Switch"],
+    platforms: [
+      "PS4",
+      "PS3",
+      "Xbox One",
+      "Xbox 360",
+      "PC",
+      "PS Vita",
+      "Switch",
+    ],
     images: [
       {
         src: "Images/rev2mejor.webp",
@@ -454,7 +508,15 @@ const EVENTS = [
     era: "Resident Evil 7: Biohazard",
     title: "Ethan Winters al rescate (de la saga)",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
-    platforms: ["PS4", "Xbox One", "PC", "Switch (nube)", "PS5", "Xbox Series X|S", "Switch 2"],
+    platforms: [
+      "PS4",
+      "Xbox One",
+      "PC",
+      "Switch (nube)",
+      "PS5",
+      "Xbox Series X|S",
+      "Switch 2",
+    ],
     images: [
       {
         src: "Images/resident7.webp",
@@ -475,7 +537,15 @@ const EVENTS = [
     era: "Resident Evil 2: Remake",
     title: "Empieza una nueva era. ¿Nueva?",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
-    platforms: ["PS4", "Xbox One", "PC", "PS5", "Xbox Series X|S", "iOS", "macOS"],
+    platforms: [
+      "PS4",
+      "Xbox One",
+      "PC",
+      "PS5",
+      "Xbox Series X|S",
+      "iOS",
+      "macOS",
+    ],
     images: [
       {
         src: "Images/Re2remake.jpg",
@@ -511,7 +581,18 @@ const EVENTS = [
     era: "Resident Evil 8: Village",
     title: "¿Cómo está, señora D?",
     text: "El acceso reemplaza a la posesión: la música se reproduce desde servidores bajo demanda.",
-    platforms: ["PS5", "PS4", "Xbox Series X|S", "Xbox One", "PC", "Stadia", "Switch (nube)", "macOS", "iOS", "Switch 2"],
+    platforms: [
+      "PS5",
+      "PS4",
+      "Xbox Series X|S",
+      "Xbox One",
+      "PC",
+      "Stadia",
+      "Switch (nube)",
+      "macOS",
+      "iOS",
+      "Switch 2",
+    ],
     images: [
       {
         src: "Images/revillage.jpg",
@@ -523,8 +604,8 @@ const EVENTS = [
         src: "Images/ladyD.gif",
       },
       {
-        src: "Images/games_re8_review.webp"
-      }
+        src: "Images/games_re8_review.webp",
+      },
     ],
   },
   {
@@ -532,12 +613,18 @@ const EVENTS = [
     era: "Resident Evil Re:Verse",
     title: "Morir es solo el comienzo",
     text: "Un todos contra todos en línea para hasta 6 jugadores, con personajes clásicos de la saga. Al morir regresas convertido en arma biológica. Iba a llegar junto a Village en 2021 como regalo, pero tras varios retrasos salió hasta octubre de 2022.",
-    platforms: ["PS4", "Xbox One", "PC", "PS5 (retrocompatible)", "Xbox Series X|S (retrocompatible)"],
+    platforms: [
+      "PS4",
+      "Xbox One",
+      "PC",
+      "PS5 (retrocompatible)",
+      "Xbox Series X|S (retrocompatible)",
+    ],
     images: [
       {
-        src: "Images/reverse.jpg"
-      }
-    ]
+        src: "Images/reverse.jpg",
+      },
+    ],
   },
   {
     year: 2023,
@@ -547,18 +634,18 @@ const EVENTS = [
     platforms: ["PS5", "PS4", "Xbox Series X|S", "PC", "iOS", "macOS"],
     images: [
       {
-        src: "Images/re4remake.webp"
+        src: "Images/re4remake.webp",
       },
       {
-        src: "Images/re4comparison.jpg"
+        src: "Images/re4comparison.jpg",
       },
       {
-        src: "Images/re4remakeleon.jpeg"
+        src: "Images/re4remakeleon.jpeg",
       },
       {
-        src: "Images/leonchainsaw.gif"
-      }
-    ]
+        src: "Images/leonchainsaw.gif",
+      },
+    ],
   },
   {
     year: 2026,
@@ -568,18 +655,18 @@ const EVENTS = [
     platforms: ["PS5", "Xbox Series X|S", "Switch 2", "PC"],
     images: [
       {
-        src: "Images/rerequiem.webp"
+        src: "Images/rerequiem.webp",
       },
       {
-        src: "Images/grace.webp"
+        src: "Images/grace.webp",
       },
       {
-        src: "Images/papucho.webp"
+        src: "Images/papucho.webp",
       },
       {
-        src: "Images/re9.webp"
-      }
-    ]
+        src: "Images/re9.webp",
+      },
+    ],
   },
   {
     year: 2027,
@@ -593,7 +680,7 @@ const EVENTS = [
         // Provisional: cámbialo por la imagen oficial del remake (p. ej. Images/reveronica.jpg)
         src: "Images/RECVopening.mp4",
         caption: "Resident Evil Veronica · próximamente",
-      }
-    ]
+      },
+    ],
   },
 ];

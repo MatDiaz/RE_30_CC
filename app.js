@@ -1,8 +1,7 @@
 /* Lógica de la presentación: portada, línea del tiempo, tarjetas y galería.
    Necesita que eventos.js se cargue antes (define EVENTS). */
 
-const DECK_TITLE =
-  "Enter the Survival Horror: Tres décadas de pesadillas con Resident Evil";
+const DECK_TITLE = "";
 
 /* Escala fija: cada año ocupa siempre los mismos píxeles */
 const PX_PER_YEAR = 48;
@@ -129,8 +128,8 @@ function render(animateCard) {
     const { n, total } = slots[current],
       slot = $("yearSlot");
     slot.hidden = total === 1;
-    $("evTitle").textContent = e.title;
-    $("evText").textContent = e.text;
+    setRich($("evTitle"), e.title);
+    setRich($("evText"), e.text);
     fillFacts(e);
     const imgs = imagesOf(e);
     $("gallery").innerHTML = "";
@@ -151,6 +150,65 @@ function render(animateCard) {
     fillCard();
     slide.classList.remove("leaving");
   }, 300);
+}
+
+/* Texto con formato en title, text y caption de eventos.js.
+   Solo se interpretan estas etiquetas (sin atributos); cualquier otra se
+   ignora y se muestra su contenido como texto normal:
+     <i>cursiva</i>  <em>énfasis</em>  <b>negrita</b>  <strong>fuerte</strong>
+     <u>subrayado</u>  <small>pequeño</small>  <br> salto de línea */
+const ETIQUETAS = ["i", "em", "b", "strong", "u", "small", "br"];
+
+function setRich(el, str) {
+  const tpl = document.createElement("template");
+  tpl.innerHTML = str || "";
+  el.replaceChildren(limpiarNodos(tpl.content));
+}
+
+function limpiarNodos(origen) {
+  const frag = document.createDocumentFragment();
+  origen.childNodes.forEach((n) => {
+    if (n.nodeType === Node.TEXT_NODE) {
+      frag.append(n.textContent);
+    } else if (n.nodeType === Node.ELEMENT_NODE) {
+      const tag = n.tagName.toLowerCase();
+      if (ETIQUETAS.includes(tag)) {
+        const limpio = document.createElement(tag); // se crea de cero: sin atributos
+        limpio.append(limpiarNodos(n));
+        frag.append(limpio);
+      } else {
+        frag.append(limpiarNodos(n)); // etiqueta no permitida: solo su texto
+      }
+    }
+  });
+  return frag;
+}
+
+const sinEtiquetas = (str) => (str || "").replace(/<[^>]*>/g, "").trim();
+
+/* Revisa las etiquetas de eventos.js al cargar y avisa en la consola (F12)
+   si alguna no está permitida, está mal escrita o no se cerró. */
+function revisarEtiquetas() {
+  EVENTS.forEach((e) => {
+    const campos = [["title", e.title], ["text", e.text]];
+    imagesOf(e).forEach((im, k) => campos.push(["images[" + k + "].caption", im.caption]));
+    campos.forEach(([campo, str]) => {
+      if (!str) return;
+      const abiertas = [];
+      const problemas = [];
+      for (const [, cierre, nombre] of str.matchAll(/<(\/?)\s*([a-z0-9]*)[^>]*>/gi)) {
+        const tag = nombre.toLowerCase();
+        if (!ETIQUETAS.includes(tag)) problemas.push("<" + cierre + nombre + "> no está permitida");
+        else if (tag === "br") continue;
+        else if (!cierre) abiertas.push(tag);
+        else if (abiertas[abiertas.length - 1] === tag) abiertas.pop();
+        else problemas.push("</" + tag + "> no tiene apertura");
+      }
+      abiertas.forEach((t) => problemas.push("<" + t + "> no se cerró"));
+      if (problemas.length)
+        console.warn("[eventos.js] " + e.year + " · " + e.era + " · " + campo + ": " + problemas.join("; ") + "\n  → " + str);
+    });
+  });
 }
 
 /* Ficha del juego: plataformas en las que se puede jugar (campo platforms) */
@@ -322,7 +380,7 @@ function fillGallery(imgs, ars, e) {
       shot.appendChild(mediaElement(im, e));
       if (im.caption) {
         const cap = document.createElement("figcaption");
-        cap.textContent = im.caption;
+        setRich(cap, im.caption);
         shot.appendChild(cap);
       }
       line.appendChild(shot);
@@ -340,7 +398,7 @@ function fillGallery(imgs, ars, e) {
 }
 
 function mediaElement(im, e) {
-  const label = im.alt || e.title;
+  const label = sinEtiquetas(im.alt || e.title);
   if (isVideo(im.src)) {
     const v = document.createElement("video");
     v.src = im.src;
@@ -480,6 +538,7 @@ hl.textContent = words.slice(-2).join(" ");
 $("coverTitle").append(words.slice(0, -2).join(" ") + " ", hl);
 $("coverSub").textContent = coverSub;
 showCover(true, false);
+revisarEtiquetas();
 // Precarga las imágenes (y mide su proporción) para que no aparezcan con retraso al avanzar.
 EVENTS.forEach((e) => imagesOf(e).forEach(({ src }) => ratioOf(src)));
 layout();
