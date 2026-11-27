@@ -187,7 +187,8 @@ header {
 }
 
 .shot img,
-.shot video {
+.shot video,
+.shot canvas {
   width: 100%;
   height: auto;
   aspect-ratio: var(--ar);
@@ -888,4 +889,81 @@ kbd {
   .era::after {
     animation: none !important;
   }
+}
+
+/* ============================================================
+   Modo PDF (index.html?pdf): cada vista se copia en una página de
+   1600×900 para imprimirla. Ver modoPDF() en app.js. */
+@page {
+  size: 1600px 900px;
+  margin: 0;
+}
+
+html.pdf {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+html.pdf body {
+  width: 1600px;
+  height: 900px;
+}
+
+html.pdf body::after,
+html.pdf .controls,
+html.pdf .cover-actions {
+  display: none;
+}
+
+.pdf-paginas {
+  display: none;
+}
+
+html.pdf-listo,
+html.pdf-listo body {
+  height: auto;
+  overflow: visible;
+}
+
+html.pdf-listo body {
+  background: var(--bg);
+}
+
+html.pdf-listo body > .app,
+html.pdf-listo body > .cover {
+  display: none;
+}
+
+html.pdf-listo .pdf-paginas {
+  display: block;
+}
+
+.pdf-pagina {
+  position: relative;
+  width: 1600px;
+  height: 900px;
+  overflow: hidden;
+  break-after: page;
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 35%, var(--bg-glow), transparent 70%),
+    radial-gradient(ellipse at center, transparent 55%, #000 120%),
+    var(--bg);
+}
+
+.pdf-pagina:last-child {
+  break-after: auto;
+}
+
+.pdf-pagina > .cover {
+  position: absolute;
+  transition: none;
+}
+
+.pdf-pagina > .app {
+  height: 100%;
+}
+
+.pdf-pagina * {
+  transition: none !important;
+  animation: none !important;
 }

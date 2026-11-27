@@ -402,6 +402,7 @@ function mediaElement(im, e) {
   if (isVideo(im.src)) {
     const v = document.createElement("video");
     v.src = im.src;
+    if (im.poster) v.poster = im.poster; // imagen fija: se ve mientras carga y se usa en el PDF
     v.autoplay = v.loop = v.muted = v.playsInline = true;
     v.setAttribute("aria-label", label);
     return v;
@@ -543,3 +544,88 @@ revisarEtiquetas();
 EVENTS.forEach((e) => imagesOf(e).forEach(({ src }) => ratioOf(src)));
 layout();
 render(false);
+
+/* ============================================================
+   Modo PDF: abre index.html?pdf para armar la presentación completa
+   como páginas de 1600×900 (portada + un evento por página) lista para
+   imprimir. Pensado para generarse con Edge/Chrome en modo headless con
+   la ventana a 1600×900 (ver generar-pdf.mjs). Al terminar marca
+   <html data-pdf-listo>.                                         */
+if (new URLSearchParams(location.search).has("pdf")) modoPDF();
+
+async function modoPDF() {
+  const raiz = document.documentElement;
+  raiz.classList.add("pdf");
+  const espera = (ms) => new Promise((r) => setTimeout(r, ms));
+  const paginas = document.createElement("div");
+  paginas.className = "pdf-paginas";
+
+  // Copia una vista ya armada: sin ids duplicados ni el tirón del .era a medias.
+  // Los videos se reemplazan por su imagen fija (campo poster en eventos.js) o,
+  // si no tienen, por un fotograma dibujado en un <canvas> (en headless puede
+  // salir vacío, por eso conviene poner poster).
+  async function pagina(original) {
+    const copia = original.cloneNode(true);
+    copia.querySelectorAll("[id]").forEach((n) => n.removeAttribute("id"));
+    copia.removeAttribute("id");
+    copia.querySelectorAll(".twitch-now, .twitch-soft").forEach((n) =>
+      n.classList.remove("twitch-now", "twitch-soft"),
+    );
+    const vOrig = original.querySelectorAll("video"),
+      vCopia = copia.querySelectorAll("video");
+    for (let k = 0; k < vOrig.length; k++) {
+      const v = vOrig[k];
+      if (v.poster) {
+        const img = document.createElement("img");
+        img.src = v.poster;
+        img.alt = v.getAttribute("aria-label") || "";
+        await img.decode().catch(() => {});
+        vCopia[k].replaceWith(img);
+        continue;
+      }
+      if (v.readyState < 1)
+        await Promise.race([
+          new Promise((r) => v.addEventListener("loadedmetadata", r, { once: true })),
+          espera(4000),
+        ]);
+      // El primer fotograma suele ser negro: toma uno a un tercio del video (máx. 2 s).
+      v.pause();
+      const t = Math.min(2, (v.duration || 3) / 3);
+      await Promise.race([
+        new Promise((r) => {
+          v.addEventListener("seeked", r, { once: true });
+          v.currentTime = t;
+        }),
+        espera(4000),
+      ]);
+      const c = document.createElement("canvas");
+      c.width = v.videoWidth || 640;
+      c.height = v.videoHeight || 360;
+      try {
+        c.getContext("2d").drawImage(v, 0, 0, c.width, c.height);
+      } catch (_) {}
+      vCopia[k].replaceWith(c);
+    }
+    const hoja = document.createElement("section");
+    hoja.className = "pdf-pagina";
+    hoja.appendChild(copia);
+    paginas.appendChild(hoja);
+  }
+
+  await document.fonts.ready;
+  layout();
+  // Portada
+  await pagina(cover);
+  // Un evento por página
+  showCover(false, false);
+  for (let i = 0; i < EVENTS.length; i++) {
+    current = i;
+    render(false);
+    await Promise.all(imagesOf(EVENTS[i]).map((im) => ratioOf(im.src)));
+    await espera(50); // deja que fillGallery termine de acomodar la galería
+    await pagina(app);
+  }
+  document.body.appendChild(paginas);
+  raiz.classList.add("pdf-listo");
+  raiz.dataset.pdfListo = "";
+}

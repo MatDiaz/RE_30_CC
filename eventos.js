@@ -570,6 +570,7 @@ const EVENTS = [
       },
       {
         src: "Images/jillremake.mp4",
+        poster: "Images/jillremake-poster.png",
       },
       {
         src: "Images/reresistance.jpg",
